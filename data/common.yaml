@@ -1,0 +1,7 @@
+---
+
+pulsar::package_ensure: 'present'
+pulsar::package_name: 'pulsar'
+pulsar::service_enable: true
+pulsar::service_ensure: 'running'
+pulsar::service_name: 'pulsar'
