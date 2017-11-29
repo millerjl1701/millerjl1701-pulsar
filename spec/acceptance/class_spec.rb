@@ -13,13 +13,34 @@ describe 'pulsar class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
-    describe package('pulsar') do
+    describe package('python') do
       it { should be_installed }
     end
 
-    describe service('pulsar') do
-      it { should be_enabled }
-      it { should be_running }
+    describe package('python2-pip') do
+      it { should be_installed }
     end
+
+    describe package('python-devel') do
+      it { should be_installed }
+    end
+
+    describe package('python-gunicorn') do
+      it { should_not be_installed }
+    end
+
+    describe package('python-virtualenv') do
+      it { should be_installed }
+    end
+
+    describe yumrepo('epel') do
+      it { should exist }
+      it { should be_enabled }
+    end
+
+    #describe service('pulsar') do
+    #  it { should be_enabled }
+    #  it { should be_running }
+    #end
   end
 end

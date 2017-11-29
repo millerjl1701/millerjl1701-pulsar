@@ -1,5 +1,9 @@
 ---
 
+pulsar::manage_python: true
+pulsar::manage_python_dev: 'present'
+pulsar::manage_python_use_epel: true
+pulsar::manage_python_virtualenv: 'present'
 pulsar::package_ensure: 'present'
 pulsar::package_name: 'pulsar'
 pulsar::service_enable: true
