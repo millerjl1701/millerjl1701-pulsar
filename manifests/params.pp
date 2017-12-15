@@ -1,12 +1,12 @@
 # @api private
 #
-# This class manages the Pulsar parameters
+# This class manages the Pulsar parameters that could be operating system dependent.
 class pulsar::params {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
       case $::operatingsystemmajrelease {
         '6', '7': {
-          $package_name = 'pulsar'
+          $manage_python_use_epel = true
           $service_name = 'pulsar'
         }
         default: {
