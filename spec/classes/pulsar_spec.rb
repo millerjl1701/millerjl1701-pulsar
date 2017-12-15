@@ -11,10 +11,13 @@ describe 'pulsar' do
         context "pulsar class without any parameters changed from defaults" do
           it { is_expected.to compile.with_all_deps }
 
+
           it { is_expected.to contain_class('pulsar::params') }
+          it { is_expected.to contain_class('pulsar::python') }
           it { is_expected.to contain_class('pulsar::install') }
           it { is_expected.to contain_class('pulsar::config') }
           it { is_expected.to contain_class('pulsar::service') }
+          it { is_expected.to contain_class('pulsar::python').that_comes_before('Class[pulsar::install]') }
           it { is_expected.to contain_class('pulsar::install').that_comes_before('Class[pulsar::config]') }
           it { is_expected.to contain_class('pulsar::service').that_subscribes_to('Class[pulsar::config]') }
 

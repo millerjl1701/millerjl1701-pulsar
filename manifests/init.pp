@@ -25,5 +25,5 @@ class pulsar (
   validate_bool($manage_python_use_epel)
   validate_re($manage_python_virtualenv, [ '^present$', '^absent$', ])
 
-  class { '::pulsar::install': } -> class { '::pulsar::config': } ~> class { '::pulsar::service': } -> Class['::pulsar']
+  class{ '::pulsar::python': } -> class { '::pulsar::install': } -> class { '::pulsar::config': } ~> class { '::pulsar::service': } -> Class['::pulsar']
 }
