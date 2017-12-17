@@ -11,8 +11,6 @@ describe 'pulsar' do
         context "pulsar class without any parameters changed from defaults" do
           it { is_expected.to compile.with_all_deps }
 
-
-          it { is_expected.to contain_class('pulsar::params') }
           it { is_expected.to contain_class('pulsar::python') }
           it { is_expected.to contain_class('pulsar::install') }
           it { is_expected.to contain_class('pulsar::config') }

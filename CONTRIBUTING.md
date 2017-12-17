@@ -27,14 +27,17 @@ all managed by [Bundler](http://bundler.io/) according to the
 
 By default the tests use a baseline version of Puppet.
 
-If you have Ruby 2.x or want a specific version of Puppet,
-you must set an environment variable such as:
+If want a specific version of Puppet, you must set an environment variable such as:
 
-    export PUPPET_VERSION="~> 3.2.0"
+    export PUPPET_VERSION="~> 4.0"
 
-Install the dependencies like so...
+Install the gems needed to run basic tasks and spec tests:
 
-    bundle install
+    bundle install --path=.vendor
+
+If you are doing beaker acceptance tests, then you need to use:
+
+    bundle install --path=.vendor --with system_tests development
 
 ## Syntax and style
 
@@ -42,7 +45,9 @@ The test suite will run [Puppet Lint](http://puppet-lint.com/) and
 [Puppet Syntax](https://github.com/gds-operations/puppet-syntax) to
 check various syntax and style things. You can run these locally with:
 
+    bundle exec rake validate
     bundle exec rake lint
+    bundle exec rake metadata_lint
     bundle exec rake syntax
 
 ## Running the unit tests
@@ -53,14 +58,6 @@ add tests if you're adding new functionality. If you've not used
 about how best to test your new feature. Running the test suite is done
 with:
 
-    bundle exec rake spec
-
-In order to run tests with a different version of puppet than specified in
-Gemfile, you can set an environmental veriable for bundle to use
-
-    export PUPPET_GEM_VERSION=3.8.7
-    bundle update
-    bundle show puppet
     bundle exec rake spec
 
 Note also you can run the syntax, style and unit tests in one go with:
@@ -90,16 +87,11 @@ Beaker tests with:
 This will use the host described in `spec/acceptance/nodeset/default.yml`
 by default. To run against another host, set the `BEAKER_set` environment
 variable to the name of a host described by a `.yml` file in the
-`nodeset` directory. For example, to run against CentOS 6.4:
+`nodeset` directory. For example, to run against CentOS 6.6:
 
-    BEAKER_set=centos-64-x64 bundle exec rake acceptance
+    BEAKER_set=centos-66-x64 bundle exec rake acceptance
 
 If you don't want to have to recreate the virtual machine every time you
 can use `BEAKER_destroy=no` and `BEAKER_provision=no`. On the first run you will
 at least need `BEAKER_provision` set to yes (the default). The Vagrantfile
 for the created virtual machines will be in `.vagrant/beaker_vagrant_files`.
-
-If you want to run acceptance tests with a version of puppet not specified in
-spec_helper_acceptance, you can pass environmental variales to change the version:
-
-    PUPPET_INSTALL_TYPE=foss PUPPET_INSTALL_VERSION=3.8.7 bundle exec rake acceptance
