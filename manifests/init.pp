@@ -3,10 +3,21 @@
 #
 # Main class that includes all other classes for the pulsar module.
 #
+# @param manage_gcc Whether or not to manage gcc installation with this module.
+# @param manage_git Whether or not to manage git installation with this module.
 # @param manage_python Whether or not to manage python with this module.
 # @param manage_python_dev Installation state for python-dev package to be passed to the python module.
 # @param manage_python_use_epel Whether or not the python module should manage the use of epel.
 # @param manage_python_virtualenv Installation state for python-virtualenv package to be passed to the python module.
+# @param pulsar_dir Directory for where to install pulsar.
+# @param pulsar_dirmode Mode to use for pulsar directories.
+# @param pulsar_filemode Mode to use for pulsar files.
+# @param pulsar_git_repository URL of the pulsar git repository.
+# @param pulsar_git_revision Revision, tag, or commit id of the pulsar git repository to use.
+# @param pulsar_group Group that should be used for pulsar server and configuration files.
+# @param pulsar_owner Owner that should be assigned to pulsar server and configuration files.
+# @param pulsar_pip_install Whether to install by pip or by using the gitrepo instead of pip.
+# @param pulsar_requirements What pip packages to install into the pulsar virtual environment.
 # @param service_enable Whether to enable the pulsar service at boot.
 # @param service_ensure Whether the pulsar service should be running.
 # @param service_name Specifies the name of the service to manage.
