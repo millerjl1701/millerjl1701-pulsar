@@ -1,9 +1,21 @@
 ---
 
+pulsar::manage_gcc: true
+pulsar::manage_git: true
 pulsar::manage_python: true
 pulsar::manage_python_dev: 'present'
 pulsar::manage_python_use_epel: true
 pulsar::manage_python_virtualenv: 'present'
+pulsar::pulsar_dir: '/opt/pulsar'
+pulsar::pulsar_dirmode: '0775'
+pulsar::pulsar_filemode: '0664'
+pulsar::pulsar_git_repository: 'https://github.com/galaxyproject/pulsar'
+pulsar::pulsar_git_revision: 'master'
+pulsar::pulsar_group: 'galaxy'
+pulsar::pulsar_owner: 'galaxy'
+pulsar::pulsar_pip_install: true
+pulsar::pulsar_requirements:
+  - 'pulsar-app'
 pulsar::service_enable: true
 pulsar::service_ensure: 'running'
 pulsar::service_name: 'pulsar'

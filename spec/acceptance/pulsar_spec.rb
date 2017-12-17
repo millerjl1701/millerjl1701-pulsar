@@ -13,6 +13,10 @@ describe 'pulsar class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
+    describe package('git') do
+      it { should be_installed }
+    end
+
     describe package('python') do
       it { should be_installed }
     end
@@ -36,6 +40,26 @@ describe 'pulsar class' do
     describe yumrepo('epel') do
       it { should exist }
       it { should be_enabled }
+    end
+
+    describe file('/opt/pulsar') do
+      it { should be_directory }
+      it { should be_mode 775 }
+    end
+
+    describe file('/opt/pulsar/venv') do
+      it { should be_directory }
+      it { should be_mode 775 }
+    end
+
+    describe file('/opt/pulsar/venv/lib/python2.7/site-packages/pulsar') do
+      it { should be_directory }
+      it { should be_mode 775 }
+    end
+
+    describe file('/opt/pulsar/requirements.txt') do
+      it { should be_file }
+      it { should contain 'pulsar-app' }
     end
 
     #describe service('pulsar') do
