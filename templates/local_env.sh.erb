@@ -1,0 +1,46 @@
+## Puppet managed file. Local changes will be overwritten.
+#
+## Place local configuration variables used by Pulsar and run.sh in here. For example
+
+## If using the drmaa queue manager, you will need to set the DRMAA_LIBRARY_PATH variable,
+## you may also need to update LD_LIBRARY_PATH for underlying library as well. 
+<% if @_drmaa_path -%>
+export DRMAA_LIBRARY_PATH=<%= @_drmaa_path %>
+<% else -%>
+#export DRMAA_LIBRARY_PATH=/path/to/libdrmaa.so
+<% end -%>
+
+## If you wish to use a variety of Galaxy tools that depend on galaxy.eggs being defined, 
+## set GALAXY_HOME to point to a copy of Galaxy.
+<% if @_galaxy_path -%>
+export GALAXY_HOME=<%= @_galaxy_path %>
+<% else -%>
+#export GALAXY_HOME=/path/to/galaxy
+<% end -%>
+
+## In order to set metadata on the pulsar side, Pulsar needs to know where
+## Galaxy's virtualenv is. If not using remote metadata, this is unnecessary.
+<% if @_galaxy_venv -%>
+export GALAXY_VIRTUAL_ENV=<%= @_galaxy_venv %>
+<% else -%>
+#export GALAXY_VIRTUAL_ENV=/path/to/galaxy/.venv
+<% end -%>
+
+## Uncomment to verify GALAXY_HOME is set properly before starting the Pulsar.
+<% if @_galaxy_verify -%>
+export TEST_GALAXY_LIBS=1
+<% else -%>
+#export TEST_GALAXY_LIBS=1
+<% end -%>
+
+## If using a manager that runs jobs as real users, be sure to load your Python
+## environement in here as well.
+<% if @_job_run_as_user -%>
+<% if @_pip_install -%>
+. venv/bin/activate
+<% else -%>
+. .venv/bin/activate
+<% end -%>
+<% else -%>
+# . .venv/bin/activate
+<% end -%>

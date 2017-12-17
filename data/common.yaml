@@ -6,16 +6,35 @@ pulsar::manage_python: true
 pulsar::manage_python_dev: 'present'
 pulsar::manage_python_use_epel: true
 pulsar::manage_python_virtualenv: 'present'
+pulsar::pulsar_config_dir: '/opt/pulsar'
 pulsar::pulsar_dir: '/opt/pulsar'
 pulsar::pulsar_dirmode: '0775'
+pulsar::pulsar_drmaa_path: ~
 pulsar::pulsar_filemode: '0664'
+pulsar::pulsar_file_cache_dir: ~
+pulsar::pulsar_galaxy_path: ~
+pulsar::pulsar_galaxy_venv_path: ~
+pulsar::pulsar_galaxy_verify: false
 pulsar::pulsar_git_repository: 'https://github.com/galaxyproject/pulsar'
 pulsar::pulsar_git_revision: 'master'
 pulsar::pulsar_group: 'galaxy'
+pulsar::pulsar_job_directory_mode: ~
+pulsar::pulsar_job_run_as_user: false
+pulsar::pulsar_named_managers:
+  '__default__':
+    'type': 'queued_python'
+    'num_concurrent_jobs': '1'
 pulsar::pulsar_owner: 'galaxy'
+pulsar::pulsar_persistence_dir: '/opt/pulsar/files/persisted_data'
 pulsar::pulsar_pip_install: true
+pulsar::pulsar_private_token: ~
 pulsar::pulsar_requirements:
   - 'pulsar-app'
+pulsar::pulsar_staging_dir: '/opt/pulsar/files/staging'
+pulsar::pulsar_template_app: 'pulsar/app.yml.erb'
+pulsar::pulsar_template_local_env: 'pulsar/local_env.sh.erb'
+pulsar::pulsar_tool_dependency_dir: '/opt/pulsar/dependencies'
+pulsar::pulsar_use_uuids: false
 pulsar::service_enable: true
 pulsar::service_ensure: 'running'
 pulsar::service_name: 'pulsar'

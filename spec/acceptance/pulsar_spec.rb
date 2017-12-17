@@ -5,12 +5,23 @@ describe 'pulsar class' do
     # Using puppet_apply as a helper
     it 'should work idempotently with no errors' do
       pp = <<-EOS
-      class { 'pulsar': }
+      class { 'pulsar':
+        pulsar_owner => 'root',
+        pulsar_group => 'root',
+      }
       EOS
 
       # Run it twice and test for idempotency
       apply_manifest(pp, :catch_failures => true)
       apply_manifest(pp, :catch_changes  => true)
+    end
+
+    describe package('gcc') do
+      it { should be_installed }
+    end
+
+    describe package('gcc-c++') do
+      it { should be_installed }
     end
 
     describe package('git') do
@@ -54,12 +65,34 @@ describe 'pulsar class' do
 
     describe file('/opt/pulsar/venv/lib/python2.7/site-packages/pulsar') do
       it { should be_directory }
-      it { should be_mode 775 }
     end
 
     describe file('/opt/pulsar/requirements.txt') do
       it { should be_file }
       it { should contain 'pulsar-app' }
+    end
+
+    describe file('/opt/pulsar/app.yml') do
+      it { should be_file }
+      it { should be_mode 664 }
+      it { should contain 'staging_directory: /opt/pulsar/files/staging' }
+      it { should contain '__default__' }
+      it { should contain 'persistence_directory: /opt/pulsar/files/persisted_data' }
+      it { should contain 'tool_dependency_dir: /opt/pulsar/dependencies' }
+    end
+
+    describe file('/opt/pulsar/local_env.sh') do
+      it { should be_file }
+      it { should be_mode 664 }
+      it { should contain '#export DRMAA_LIBRARY_PATH=/path/to/libdrmaa.so' }
+    end
+
+    describe file('/opt/pulsar/run.sh') do
+      it { should be_file }
+      it { should be_mode 775 }
+      it { should contain 'PULSAR_CONFIG_DIR=/opt/pulsar' }
+      it { should contain 'PULSAR_LOCAL_ENV=/opt/pulsar/local_env.sh' }
+      it { should contain 'PULSAR_VIRTUALENV=/opt/pulsar/venv' }
     end
 
     #describe service('pulsar') do
