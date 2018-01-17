@@ -61,7 +61,7 @@ class pulsar (
   String                          $pulsar_group               = 'galaxy',
   Optional[String]                $pulsar_job_directory_mode  = undef,
   Boolean                         $pulsar_job_run_as_user     = false,
-  Hash                            $pulsar_named_managers      = {},
+  Hash                            $pulsar_named_managers      = { '__default__' => {'type' =>'queued_python', 'num_concurrent_jobs' => 'i', } }, 
   String                          $pulsar_owner               = 'galaxy',
   String                          $pulsar_persistence_dir     = "${pulsar_dir}/files/persisted_data",
   Boolean                         $pulsar_pip_install         = true,
