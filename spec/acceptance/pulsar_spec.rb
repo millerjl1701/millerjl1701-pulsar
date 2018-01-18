@@ -5,9 +5,23 @@ describe 'pulsar class' do
     # Using puppet_apply as a helper
     it 'should work idempotently with no errors' do
       pp = <<-EOS
+      user {  'galaxy':
+        ensure => present,
+      }
+      group { 'galaxy':
+        ensure => present,
+      }
+      class { 'python':
+        dev             => present,
+        manage_gunicorn => false,
+        use_epel        => true,
+        virtualenv      => present,
+      }
+      class { 'supervisord':
+        manage_python => false,
+      }
       class { 'pulsar':
-        pulsar_owner => 'root',
-        pulsar_group => 'root',
+        manage_python => false,
       }
       EOS
 
@@ -95,9 +109,16 @@ describe 'pulsar class' do
       it { should contain 'PULSAR_VIRTUALENV=/opt/pulsar/venv' }
     end
 
-    #describe service('pulsar') do
-    #  it { should be_enabled }
-    #  it { should be_running }
-    #end
+    describe file('/etc/supervisor/conf.d/pulsar.conf') do
+      it { should be_file }
+      it { should be_owned_by 'root' }
+      it { should be_grouped_into 'root' }
+      it { should be_mode 644 }
+      it { should contain '[program:pulsar]' }
+    end
+
+    describe process('pulsar') do
+      it { should be_running }
+    end
   end
 end

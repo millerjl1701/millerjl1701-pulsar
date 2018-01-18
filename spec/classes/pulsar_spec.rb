@@ -96,6 +96,13 @@ describe 'pulsar' do
             'mode'   => '0664',
           ) }
 
+          it { is_expected.to contain_file('/var/log/pulsar').with(
+            'ensure' => 'directory',
+            'owner'  => 'galaxy',
+            'group'  => 'galaxy',
+            'mode'   => '0775',
+          ) }
+
           it { is_expected.to contain_python__virtualenv('/opt/pulsar/venv').with(
             'ensure'  => 'present',
             'owner'   => 'galaxy',
@@ -124,12 +131,41 @@ describe 'pulsar' do
             'require'                => 'File[/opt/pulsar/requirements.txt]',
           ) }
 
-          #it { is_expected.to contain_service('pulsar').with(
-          #  'ensure'     => 'running',
-          #  'enable'     => 'true',
-          #  'hasstatus'  => 'true',
-          #  'hasrestart' => 'true',
-          #) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with(
+            'ensure' => 'present',
+            'owner'  => 'root',
+            'group'  => 'root',
+            'mode'   => '0644',
+          ) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^\[program:pulsar\]$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^user            = galaxy$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^group           = galaxy$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^directory       = \/opt\/pulsar$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^command         = \/opt\/pulsar\/venv\/bin\/pulsar --mode \'paster\' --config \'\/opt\/pulsar\'$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^stdout_logfile  = \/var\/log\/pulsar\/pulsar.log$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^stdout_logfile_backups  = 10$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^autostart       = true$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^autorestart     = true$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^environment     = VIRTUAL_ENV=\"\/opt\/pulsar\/venv\",PATH=\"\/opt\/pulsar\:\/opt\/pulsar\/venv\/bin\:\%\(ENV_PATH\)s\"$/) }
+
+          it { is_expected.to contain_exec('pulsar_supervisord_reread_config').with(
+            'command'     => 'supervisorctl update',
+            'path'        => '/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin:/root/bin',
+            'refreshonly' => 'true',
+            'notify'      => 'Service[pulsar]',
+          ) }
+
+          it { is_expected.to contain_exec('pulsar_supervisord_reread_config').that_subscribes_to('File[/etc/supervisor/conf.d/pulsar.conf]') }
+
+          it { is_expected.to contain_service('pulsar').with(
+            'ensure'  => 'running',
+            'status'  => '/bin/ps -C pulsar -o pid=',
+            'start'   => 'supervisorctl start pulsar',
+            'restart' => 'supervisorctl restart pulsar',
+            'stop'    => 'supervisorctl stop pulsar',
+          ) }
+          it { is_expected.to contain_service('pulsar').that_subscribes_to('File[/etc/supervisor/conf.d/pulsar.conf]') }
+          it { is_expected.to contain_service('pulsar').that_subscribes_to('Exec[pulsar_supervisord_reread_config]') }
         end
 
         context 'pulsar class with manage_gcc set to false' do
@@ -231,6 +267,9 @@ describe 'pulsar' do
             'log_dir'      => '/opt/foo',
             'require'      => 'File[/opt/foo/requirements.txt]',
           ) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^directory       = \/opt\/foo$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^command         = \/opt\/foo\/venv\/bin\/pulsar --mode \'paster\' --config \'\/opt\/foo\'$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^environment     = VIRTUAL_ENV=\"\/opt\/foo\/venv\",PATH=\"\/opt\/foo\:\/opt\/foo\/venv\/bin\:\%\(ENV_PATH\)s\"$/) }
         end
 
         context 'pulsar class with pulsar_dirmode set to 0755' do
@@ -340,6 +379,7 @@ describe 'pulsar' do
           it { is_expected.to contain_file('/opt/pulsar').with_group('pulsar') }
           it { is_expected.to contain_file('/opt/pulsar/requirements.txt').with_group('pulsar') }
           it { is_expected.to contain_python__requirements('pulsar_pip_requirements').with_group('pulsar') }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^group           = pulsar$/) }
         end
 
         context 'pulsar class with pulsar_group set to pulsar in addition to pulsar_pip_install set to false' do
@@ -384,6 +424,26 @@ describe 'pulsar' do
           it { is_expected.to contain_file('/opt/pulsar/local_env.sh').with_content(/^. .venv\/bin\/activate$/) }
         end
 
+        context 'pulsar class with pulsar_logdir set to /var/log/foobar' do
+          let(:params){
+            {
+              :pulsar_logdir => '/var/log/foobar',
+            }
+          }
+
+          it { is_expected.to contain_file('/var/log/foobar').with_ensure('directory') }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^stdout_logfile  = \/var\/log\/foobar\/pulsar.log$/) }
+        end
+
+        context 'pulsar class with pulsar_num_backups set to 90' do
+          let (:params){
+            {
+              :pulsar_num_backups => 50,
+            }
+          }
+
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^stdout_logfile_backups  = 50$/) }
+        end
         context 'pulsar class with pulsar_named_managers set to hash' do
           let(:params){
             {
@@ -404,6 +464,7 @@ describe 'pulsar' do
           it { is_expected.to contain_file('/opt/pulsar').with_owner('pulsar') }
           it { is_expected.to contain_file('/opt/pulsar/requirements.txt').with_owner('pulsar') }
           it { is_expected.to contain_python__requirements('pulsar_pip_requirements').with_owner('pulsar') }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^user            = pulsar$/) }
         end
 
         context 'pulsar class with pulsar_owner set to pulsar in addition to pulsar_pip_install set to false' do
@@ -458,6 +519,8 @@ describe 'pulsar' do
             'virtualenv'             => '/opt/pulsar/.venv',
           ) }
           it { is_expected.to contain_file('/opt/pulsar/run.sh').with_content(/^PULSAR_VIRTUALENV=\/opt\/pulsar\/.venv$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^command         = \/opt\/pulsar\/.venv\/bin\/pulsar --mode \'paster\' --config \'\/opt\/pulsar\'$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/pulsar.conf').with_content(/^environment     = VIRTUAL_ENV=\"\/opt\/pulsar\/.venv\",PATH=\"\/opt\/pulsar\:\/opt\/pulsar\/.venv\/bin\:\%\(ENV_PATH\)s\"$/) }
         end
 
         context 'pulsar class with pulsar_private_token set' do
@@ -509,6 +572,50 @@ describe 'pulsar' do
           }
 
           it { is_expected.to contain_file('/opt/pulsar/app.yml').with_content(/^assign_ids: uuid$/) }
+        end
+
+        context 'pulsar class with service_manage_config set to false' do
+          let(:params){
+            {
+              :service_manage_config => false,
+            }
+          }
+
+          it { is_expected.to_not contain_file('/etc/supervisor/conf.d/pulsar.conf') }
+        end
+
+        context 'pulsar class with service_manage_configdir set to /etc/foo' do
+          let(:params){
+            {
+              :service_manage_configdir => '/etc/foo',
+            }
+          }
+
+          it { is_expected.to contain_file('/etc/foo/pulsar.conf') }
+          it { is_expected.to contain_exec('pulsar_supervisord_reread_config').that_subscribes_to('File[/etc/foo/pulsar.conf]') }
+          it { is_expected.to contain_service('pulsar').that_subscribes_to('File[/etc/foo/pulsar.conf]') }
+        end
+
+        context 'pulsar class with service_name set to foo' do
+          let(:params){
+            {
+              :service_name => 'foo',
+            }
+          }
+
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/foo.conf').with_content(/^\[program:foo\]$/) }
+          it { is_expected.to contain_file('/etc/supervisor/conf.d/foo.conf').with_content(/^stdout_logfile  = \/var\/log\/pulsar\/foo.log$/) }
+
+          it { is_expected.to contain_exec('pulsar_supervisord_reread_config').that_subscribes_to('File[/etc/supervisor/conf.d/foo.conf]') }
+
+          it { is_expected.to contain_exec('pulsar_supervisord_reread_config').with_notify('Service[foo]') }
+          it { is_expected.to contain_service('foo').with(
+            'start'   => 'supervisorctl start foo',
+            'restart' => 'supervisorctl restart foo',
+            'stop'    => 'supervisorctl stop foo',
+          ) }
+          it { is_expected.to contain_service('foo').that_subscribes_to('File[/etc/supervisor/conf.d/foo.conf]') }
+          it { is_expected.to contain_service('foo').that_subscribes_to('Exec[pulsar_supervisord_reread_config]') }
         end
 
       end

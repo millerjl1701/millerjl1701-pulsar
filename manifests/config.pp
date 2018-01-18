@@ -72,4 +72,10 @@ class pulsar::config {
     mode    => $pulsar::pulsar_filemode,
     content => template($pulsar::pulsar_template_server),
   }
+  file { $pulsar::pulsar_logdir:
+    ensure  => directory,
+    owner   => $pulsar::pulsar_owner,
+    group   => $pulsar::pulsar_group,
+    mode    => $pulsar::pulsar_dirmode,
+  }
 }

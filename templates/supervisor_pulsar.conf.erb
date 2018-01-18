@@ -1,0 +1,14 @@
+[program:<%= @_service_name %>]
+user            = <%= @_pulsar_owner %>
+group           = <%= @_pulsar_group %>
+directory       = <%= @_pulsar_dir %>
+command         = <%= @_pulsar_venv_dir %>/bin/pulsar --mode 'paster' --config '<%= @_pulsar_dir %>'
+stdout_logfile  = <%= @_pulsar_logdir %>/<%= @_service_name %>.log
+stdout_logfile_backups  = <%= @_pulsar_log_numbackups %>
+redirect_stderr = true
+autostart       = <%= @_pulsar_autostart %>
+autorestart     = <%= @_pulsar_autorestart  %>
+numprocs        = 1
+stopsignal      = KILL
+stopasgroup     = true
+environment     = VIRTUAL_ENV="<%= @_pulsar_venv_dir %>",PATH="<%= @_pulsar_dir %>:<%= @_pulsar_venv_dir %>/bin:%(ENV_PATH)s"
