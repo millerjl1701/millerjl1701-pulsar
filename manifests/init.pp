@@ -23,6 +23,8 @@
 # @param pulsar_group Group that should be used for pulsar server and configuration files.
 # @param pulsar_job_directory_mode Mode for job related directories.
 # @param pulsar_job_run_as_user Whether or not pulsar should run jobs as the real user in galaxy or not.
+# @param pulsar_logdir Directory for where supervisord should place the pulsar logs should be placed.
+# @param pulsar_num_backups Number of backups for supervisord to keep.
 # @param pulsar_named_managers Hash of named managers for pulsar.
 # @param pulsar_owner Owner that should be assigned to pulsar server and configuration files.
 # @param pulsar_persistence_dir Directory for pulsar to store information about active jobs.
@@ -34,10 +36,13 @@
 # @param pulsar_template_local_env Template to use for local_env.sh file.
 # @param pulsar_template_run Template to use for run.sh file.
 # @param pulsar_template_server Template to use for server.ini file.
+# @param pulsar_template_service  Tempalte to use for the supervisord configuration file.
 # @param pulsar_tool_dependency_dir Directory use by tool dependency resolves to find dependency scripts.
 # @param pulsar_use_uuids Whether or not pulsar should assign UUID to jobs.
 # @param service_enable Whether to enable the pulsar service at boot.
 # @param service_ensure Whether the pulsar service should be running.
+# @param service_manage_config Whether or not to manage a pulsar service configuration file for supervisord.
+# @param service_manage_configdir Directory to place the supervisord pulsar service configuration file.
 # @param service_name Specifies the name of the service to manage.
 #
 class pulsar (
