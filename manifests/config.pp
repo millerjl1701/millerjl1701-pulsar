@@ -67,11 +67,7 @@ class pulsar::config {
   }
 
   # hacks for supporting puppet 4.7 which lacks hiera 5 support
-  if $pulsar::server_ini_config {
-    $_server_config = $pulsar::server_ini_config
-    $_server_hash2ini_params = $pulsar::server_ini_hash_params
-  }
-  else {
+  if empty($pulsar::server_ini_config) {
     $_server_config = {
       'server:main'       => {
         'use'  => 'egg:Paste#http',
@@ -111,11 +107,19 @@ class pulsar::config {
         'format' => '%(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s',
       },
     }
+  }
+  else {
+    $_server_config = $pulsar::server_ini_config
+  }
+  if empty($pulsar::server_ini_hash_params) {
     $_server_hash2ini_params = {
       header            => '# Puppet managed file. Local changes will be overwritten.',
       key_val_separator => ' = ',
       quote_char        => '',
     }
+  }
+  else {
+    $_server_hash2ini_params = $pulsar::server_ini_hash_params
   }
 
   file { "${pulsar::pulsar_config_dir}/server.ini":
