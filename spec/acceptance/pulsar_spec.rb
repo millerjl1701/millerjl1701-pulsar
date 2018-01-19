@@ -11,15 +11,7 @@ describe 'pulsar class' do
       group { 'galaxy':
         ensure => present,
       }
-      class { 'python':
-        dev             => present,
-        manage_gunicorn => false,
-        use_epel        => true,
-        virtualenv      => present,
-      }
-      class { 'supervisord':
-        manage_python => false,
-      }
+      class { 'supervisord': }
       class { 'pulsar':
         manage_gcc => true,
         manage_git => true,
