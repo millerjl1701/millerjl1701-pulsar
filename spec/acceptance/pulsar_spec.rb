@@ -110,6 +110,14 @@ describe 'pulsar class' do
       it { should contain 'PULSAR_VIRTUALENV=/opt/pulsar/venv' }
     end
 
+    describe file('/opt/pulsar/server.ini') do
+      it { should be_file }
+      it { should be_mode 664 }
+      it { should contain '# Puppet managed file. Local changes will be overwritten.' }
+      it { should contain '[server:main]' }
+      it { should contain 'use = egg:Paste#http' }
+    end
+
     describe file('/etc/supervisor/conf.d/pulsar.conf') do
       it { should be_file }
       it { should be_owned_by 'root' }

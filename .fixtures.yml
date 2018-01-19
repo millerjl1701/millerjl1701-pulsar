@@ -3,6 +3,7 @@ fixtures:
     epel: "https://github.com/stahnma/puppet-module-epel.git"
     gcc: "https://github.com/puppetlabs/puppetlabs-gcc.git"
     git: "https://github.com/puppetlabs/puppetlabs-git.git"
+    hash2stuff: "https://github.com/mmckinst/puppet-hash2stuff.git"
     python: "https://github.com/stankevich/puppet-python.git"
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     vcsrepo: "https://github.com/puppetlabs/puppetlabs-vcsrepo.git"

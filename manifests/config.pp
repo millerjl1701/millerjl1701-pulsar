@@ -65,12 +65,65 @@ class pulsar::config {
     mode    => $pulsar::pulsar_dirmode,
     content => template($pulsar::pulsar_template_run),
   }
+
+  # hacks for supporting puppet 4.7 which lacks hiera 5 support
+  if $pulsar::server_ini_config {
+    $_server_config = $pulsar::server_ini_config
+    $_server_hash2ini_params = $pulsar::server_ini_hash_params
+  }
+  else {
+    $_server_config = {
+      'server:main'       => {
+        'use'  => 'egg:Paste#http',
+        'port' => '8913',
+        'host' => 'localhost'
+      },
+      'app:main'          => {
+        'paste.app_factory' => 'pulsar.web.wsgi:app_factory',
+        'app_config'        => '%(here)s/app.yml',
+      },
+      'loggers'           => {
+        'keys' => 'root,pulsar',
+      },
+      'handlers'          => {
+        'keys' => 'console',
+      },
+      'formatters'        => {
+        'keys' => 'generic',
+      },
+      'logger_root'       => {
+        'level'    => 'INFO',
+        'handlers' => 'console',
+      },
+      'logger_pulsar'     => {
+        'level'     => 'DEBUG',
+        'handlers'  => 'console',
+        'qualname'  => 'pulsar',
+        'propagate' => '0',
+      },
+      'handler_console'   => {
+        'class'     => 'StreamHandler',
+        'args'      => '(sys.stderr,)',
+        'level'     => 'DEBUG',
+        'formatter' => 'generic',
+      },
+      'formatter_generic' => {
+        'format' => '%(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s',
+      },
+    }
+    $_server_hash2ini_params = {
+      header            => '# Puppet managed file. Local changes will be overwritten.',
+      key_val_separator => ' = ',
+      quote_char        => '',
+    }
+  }
+
   file { "${pulsar::pulsar_config_dir}/server.ini":
     ensure  => present,
     owner   => $pulsar::pulsar_owner,
     group   => $pulsar::pulsar_group,
     mode    => $pulsar::pulsar_filemode,
-    content => template($pulsar::pulsar_template_server),
+    content => hash2ini($_server_config, $_server_hash2ini_params),
   }
   file { $pulsar::pulsar_logdir:
     ensure  => directory,

@@ -39,6 +39,39 @@ pulsar::pulsar_template_run: 'pulsar/run.sh.erb'
 pulsar::pulsar_template_service: 'pulsar/supervisor_pulsar.conf.erb'
 pulsar::pulsar_tool_dependency_dir: '/opt/pulsar/dependencies'
 pulsar::pulsar_use_uuids: false
+pulsar::server_ini_config:
+  'server:main':
+    'use': 'egg:Paste#http'
+    'port': '8913'
+    'host': 'localhost'
+  'app:main':
+    'paste.app_factory': 'pulsar.web.wsgi:app_factory'
+    'app_config': '%(here)s/app.yml'
+  'loggers':
+    'keys': 'root,pulsar'
+  'handlers':
+    'keys': 'console'
+  'formatters':
+    'keys': 'generic'
+  'logger_root':
+    'level': 'INFO'
+    'handlers': 'console'
+  'logger_pulsar':
+    'level': 'DEBUG'
+    'handlers': 'console'
+    'qualname': 'pulsar'
+    'propagate': '0'
+  'handler_console':
+    'class': 'StreamHandler'
+    'args': '(sys.stderr,)'
+    'level': 'DEBUG'
+    'formatter': 'generic'
+  'formatter_generic':
+    'format': '%(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s'
+pulsar::server_ini_hash_params:
+  header: '# Puppet managed file. Local changes will be overwritten.'
+  key_val_separator: ' = '
+  quote_char: ''
 pulsar::service_enable: true
 pulsar::service_ensure: 'running'
 pulsar::service_manage_config: true

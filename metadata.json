@@ -9,6 +9,10 @@
   "issues_url": "https://github.com/millerjl1701/millerjl1701-pulsar/issues",
   "dependencies": [
     {
+      "name": "mmckinst-hash2stuff",
+      "version_requirement": ">=1.0.0 <2.0.0"
+    },
+    {
       "name": "puppetlabs-gcc",
       "version_requirement": ">=0.3.0 <1.0.0"
     },

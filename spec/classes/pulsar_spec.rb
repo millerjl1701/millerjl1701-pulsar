@@ -90,6 +90,9 @@ describe 'pulsar' do
             'group'  => 'galaxy',
             'mode'   => '0664',
           ) }
+          it { is_expected.to contain_file('/opt/pulsar/server.ini').with_content(/^\# Puppet managed file. Local changes will be overwritten.$/) }
+          it { is_expected.to contain_file('/opt/pulsar/server.ini').with_content(/^\[server\:main\]$/) }
+          it { is_expected.to contain_file('/opt/pulsar/server.ini').with_content(/^use = egg\:Paste\#http$/) }
 
           it { is_expected.to contain_file('/var/log/pulsar').with(
             'ensure' => 'directory',

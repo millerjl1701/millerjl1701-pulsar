@@ -35,10 +35,11 @@
 # @param pulsar_template_app Template to use for app.yml file.
 # @param pulsar_template_local_env Template to use for local_env.sh file.
 # @param pulsar_template_run Template to use for run.sh file.
-# @param pulsar_template_server Template to use for server.ini file.
 # @param pulsar_template_service  Tempalte to use for the supervisord configuration file.
 # @param pulsar_tool_dependency_dir Directory use by tool dependency resolves to find dependency scripts.
 # @param pulsar_use_uuids Whether or not pulsar should assign UUID to jobs.
+# @param server_ini_config Pulsar settings that should appear in the server.ini file.
+# @param server_ini_hash_params Hash2ini parameters governing server.ini file generation.
 # @param service_enable Whether to enable the pulsar service at boot.
 # @param service_ensure Whether the pulsar service should be running.
 # @param service_manage_config Whether or not to manage a pulsar service configuration file for supervisord.
@@ -78,10 +79,11 @@ class pulsar (
   String                          $pulsar_template_app        = 'pulsar/app.yml.erb',
   String                          $pulsar_template_local_env  = 'pulsar/local_env.sh.erb',
   String                          $pulsar_template_run        = 'pulsar/run.sh.erb',
-  String                          $pulsar_template_server     = 'pulsar/server.ini.erb',
   String                          $pulsar_template_service    = 'pulsar/supervisor_pulsar.conf.erb',
   Stdlib::Absolutepath            $pulsar_tool_dependency_dir = "${pulsar_dir}/dependencies",
   Boolean                         $pulsar_use_uuids           = false,
+  Hash                            $server_ini_config          = {},
+  Hash                            $server_ini_hash_params     = {},
   Boolean                         $service_enable             = true,
   Enum['running', 'stopped']      $service_ensure             = 'running',
   Boolean                         $service_manage_config      = true,
