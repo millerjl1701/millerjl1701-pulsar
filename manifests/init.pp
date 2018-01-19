@@ -41,9 +41,9 @@
 # @param service_name Specifies the name of the service to manage.
 #
 class pulsar (
-  Boolean                         $manage_gcc                 = true,
-  Boolean                         $manage_git                 = true,
-  Boolean                         $manage_python              = true,
+  Boolean                         $manage_gcc                 = false,
+  Boolean                         $manage_git                 = false,
+  Boolean                         $manage_python              = false,
   Enum['present', 'absent']       $manage_python_dev          = 'present',
   Boolean                         $manage_python_use_epel     = true,
   Enum['present', 'absent']       $manage_python_virtualenv   = 'present',

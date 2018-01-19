@@ -21,7 +21,8 @@ describe 'pulsar class' do
         manage_python => false,
       }
       class { 'pulsar':
-        manage_python => false,
+        manage_gcc => true,
+        manage_git => true,
       }
       EOS
 

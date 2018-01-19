@@ -1,8 +1,8 @@
 ---
 
-pulsar::manage_gcc: true
-pulsar::manage_git: true
-pulsar::manage_python: true
+pulsar::manage_gcc: false
+pulsar::manage_git: false
+pulsar::manage_python: false
 pulsar::manage_python_dev: 'present'
 pulsar::manage_python_use_epel: true
 pulsar::manage_python_virtualenv: 'present'
@@ -20,6 +20,8 @@ pulsar::pulsar_git_revision: 'master'
 pulsar::pulsar_group: 'galaxy'
 pulsar::pulsar_job_directory_mode: ~
 pulsar::pulsar_job_run_as_user: false
+pulsar::pulsar_logdir: '/var/log/pulsar'
+pulsar::pulsar_num_backups: 10
 pulsar::pulsar_named_managers:
   '__default__':
     'type': 'queued_python'
@@ -33,8 +35,12 @@ pulsar::pulsar_requirements:
 pulsar::pulsar_staging_dir: '/opt/pulsar/files/staging'
 pulsar::pulsar_template_app: 'pulsar/app.yml.erb'
 pulsar::pulsar_template_local_env: 'pulsar/local_env.sh.erb'
+pulsar::pulsar_template_run: 'pulsar/run.sh.erb'
+pulsar::pulsar_template_service: 'pulsar/supervisor_pulsar.conf.erb'
 pulsar::pulsar_tool_dependency_dir: '/opt/pulsar/dependencies'
 pulsar::pulsar_use_uuids: false
 pulsar::service_enable: true
 pulsar::service_ensure: 'running'
+pulsar::service_manage_config: true
+pulsar::service_manage_configdir: '/etc/supervisor/conf.d'
 pulsar::service_name: 'pulsar'

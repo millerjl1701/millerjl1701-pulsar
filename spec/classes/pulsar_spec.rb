@@ -26,17 +26,12 @@ describe 'pulsar' do
           it { is_expected.to contain_class('epel') }
           it { is_expected.to contain_yumrepo('epel') }
 
-          it { is_expected.to contain_package('gcc') }
-          it { is_expected.to contain_package('gcc-c++') }
+          it { is_expected.to_not contain_package('gcc') }
+          it { is_expected.to_not contain_package('gcc-c++') }
 
-          it { is_expected.to contain_package('git') }
+          it { is_expected.to_not contain_package('git') }
 
-          it { is_expected.to contain_class('python').with(
-            'dev'             => 'present',
-            'manage_gunicorn' => false,
-            'use_epel'        => true,
-            'virtualenv'      => 'present',
-          ) }
+          it { is_expected.to contain_class('python') }
 
           it { is_expected.to contain_file('/opt/pulsar').with(
             'ensure' => 'directory',
@@ -168,35 +163,41 @@ describe 'pulsar' do
           it { is_expected.to contain_service('pulsar').that_subscribes_to('Exec[pulsar_supervisord_reread_config]') }
         end
 
-        context 'pulsar class with manage_gcc set to false' do
+        context 'pulsar class with manage_gcc set to true' do
           let(:params){
             {
-              :manage_gcc => false,
+              :manage_gcc => true,
             }
           }
 
-          it { is_expected.to_not contain_package('gcc') }
-          it { is_expected.to_not contain_package('gcc-c++') }
+          it { is_expected.to contain_package('gcc') }
+          it { is_expected.to contain_package('gcc-c++') }
         end
 
-        context 'pulsar class with manage_git set to false' do
+        context 'pulsar class with manage_git set to true' do
           let(:params){
             {
-              :manage_git => false,
+              :manage_git => true,
             }
           }
 
-          it { is_expected.to_not contain_package('git') }
+          it { is_expected.to contain_package('git') }
         end
 
-        context 'pulsar class with manage_python set to false' do
+        context 'pulsar class with manage_python set to true' do
           let(:params){
             {
-              :manage_python => false,
+              :manage_python => true,
             }
           }
 
-          it { is_expected.to contain_class('python') }
+
+          it { is_expected.to contain_class('python').with(
+            'dev'             => 'present',
+            'manage_gunicorn' => false,
+            'use_epel'        => true,
+            'virtualenv'      => 'present',
+          ) }
         end
 
         context 'pulsar class with manage_python_dev set to absent' do
@@ -209,9 +210,10 @@ describe 'pulsar' do
           it { is_expected.to contain_class('python').with_dev('absent') }
         end
 
-        context 'pulsar class with manage_python_use_epel set to false' do
+        context 'pulsar class with manage_python_use_epel set to false when python is managed' do
           let(:params){
             {
+              :manage_python          => true,
               :manage_python_use_epel => false,
             }
           }
