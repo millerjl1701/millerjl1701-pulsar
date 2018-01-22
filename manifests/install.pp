@@ -35,10 +35,10 @@ class pulsar::install {
       virtualenv             => "${pulsar::pulsar_dir}/venv",
       owner                  => $pulsar::pulsar_owner,
       group                  => $pulsar::pulsar_group,
-      cwd                    => "${pulsar::pulsar_dir}",
+      cwd                    => $pulsar::pulsar_dir,
       manage_requirements    => false,
       fix_requirements_owner => true,
-      log_dir                => "${pulsar::pulsar_dir}",
+      log_dir                => $pulsar::pulsar_dir,
       require                => File["${pulsar::pulsar_dir}/requirements.txt"],
     }
   }
@@ -65,10 +65,10 @@ class pulsar::install {
       virtualenv             => "${pulsar::pulsar_dir}/.venv",
       owner                  => $pulsar::pulsar_owner,
       group                  => $pulsar::pulsar_group,
-      cwd                    => "${pulsar::pulsar_dir}",
+      cwd                    => $pulsar::pulsar_dir,
       manage_requirements    => false,
       fix_requirements_owner => true,
-      log_dir                => "${pulsar::pulsar_dir}",
+      log_dir                => $pulsar::pulsar_dir,
     }
   }
 }

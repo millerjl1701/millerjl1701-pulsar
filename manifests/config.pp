@@ -130,9 +130,9 @@ class pulsar::config {
     content => hash2ini($_server_config, $_server_hash2ini_params),
   }
   file { $pulsar::pulsar_logdir:
-    ensure  => directory,
-    owner   => $pulsar::pulsar_owner,
-    group   => $pulsar::pulsar_group,
-    mode    => $pulsar::pulsar_dirmode,
+    ensure => directory,
+    owner  => $pulsar::pulsar_owner,
+    group  => $pulsar::pulsar_group,
+    mode   => $pulsar::pulsar_dirmode,
   }
 }
