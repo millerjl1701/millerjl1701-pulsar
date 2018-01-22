@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: pulsar
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::pulsar";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (p)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">pulsar</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: pulsar</h1>
+<div class="box_info">
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/init.pp
+    </dd>
+  </dl>
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<h1 id="label-Class-3A+pulsar">Class: pulsar</h1>
+
+<p>Main class that includes all other classes for the pulsar module.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>manage_gcc</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not to manage gcc installation with this module.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_git</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not to manage git installation with this module.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_python</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not to manage python with this module.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_python_dev</span>
+      
+      
+        <span class='type'>(<tt>Enum['present', 'absent']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Installation state for python-dev package to be passed to the python
+module.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_python_use_epel</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not the python module should manage the use of epel.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_python_virtualenv</span>
+      
+      
+        <span class='type'>(<tt>Enum['present', 'absent']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Installation state for python-virtualenv package to be passed to the python
+module.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_config_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/opt/pulsar&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory for where to place configuration files.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/opt/pulsar&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory for where to install pulsar.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_dirmode</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0775&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Mode to use for pulsar directories.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_drmaa_path</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to libdrmaa.so.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_filemode</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;0664&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Mode to use for pulsar files.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_file_cache_dir</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory used to store incoming file cache.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_galaxy_path</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to Galaxy.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_galaxy_venv_path</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to the virtualenv for Galaxy</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_galaxy_verify</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not to verify if the path to galaxy is properly set before
+starting pulsar.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_git_repository</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Httpurl</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;https://github.com/galaxyproject/pulsar&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>URL of the pulsar git repository.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_git_revision</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;master&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Revision, tag, or commit id of the pulsar git repository to use.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;galaxy&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Group that should be used for pulsar server and configuration files.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_job_directory_mode</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Mode for job related directories.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_job_run_as_user</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not pulsar should run jobs as the real user in galaxy or not.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_logdir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/var/log/pulsar&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory for where supervisord should place the pulsar logs should be
+placed.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_num_backups</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>10</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Number of backups for supervisord to keep.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_named_managers</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{ &#39;__default__&#39; =&gt; {&#39;type&#39; =&gt;&#39;queued_python&#39;, &#39;num_concurrent_jobs&#39; =&gt; &#39;i&#39;, } }</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of named managers for pulsar.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_owner</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;galaxy&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Owner that should be assigned to pulsar server and configuration files.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_persistence_dir</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;${pulsar_dir}/files/persisted_data&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory for pulsar to store information about active jobs.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_pip_install</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to install by pip or by using the gitrepo instead of pip.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_private_token</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Private token that must be sent as part of request to authorize use.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_requirements</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[ &#39;pulsar-app&#39;, ]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>What pip packages to install into the pulsar virtual environment.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_staging_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;${pulsar_dir}/files/staging&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory to stage files.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_template_app</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;pulsar/app.yml.erb&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Template to use for app.yml file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_template_local_env</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;pulsar/local_env.sh.erb&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Template to use for local_env.sh file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_template_run</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;pulsar/run.sh.erb&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Template to use for run.sh file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_template_service</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;pulsar/supervisor_pulsar.conf.erb&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Tempalte to use for the supervisord configuration file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_tool_dependency_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;${pulsar_dir}/dependencies&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory use by tool dependency resolves to find dependency scripts.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pulsar_use_uuids</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not pulsar should assign UUID to jobs.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>server_ini_config</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Pulsar settings that should appear in the server.ini file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>server_ini_hash_params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash2ini parameters governing server.ini file generation.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_enable</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to enable the pulsar service at boot.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum['running', 'stopped']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;running&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether the pulsar service should be running.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_manage_config</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether or not to manage a pulsar service configuration file for
+supervisord.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_manage_configdir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/etc/supervisor/conf.d&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Directory to place the supervisord pulsar service configuration file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;pulsar&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Specifies the name of the service to manage.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 49</span>
+
+class pulsar (
+  Boolean                         $manage_gcc                 = false,
+  Boolean                         $manage_git                 = false,
+  Boolean                         $manage_python              = false,
+  Enum[&#39;present&#39;, &#39;absent&#39;]       $manage_python_dev          = &#39;present&#39;,
+  Boolean                         $manage_python_use_epel     = true,
+  Enum[&#39;present&#39;, &#39;absent&#39;]       $manage_python_virtualenv   = &#39;present&#39;,
+  Stdlib::Absolutepath            $pulsar_config_dir          = &#39;/opt/pulsar&#39;,
+  Stdlib::Absolutepath            $pulsar_dir                 = &#39;/opt/pulsar&#39;,
+  String                          $pulsar_dirmode             = &#39;0775&#39;,
+  Optional[Stdlib::Absolutepath]  $pulsar_drmaa_path          = undef,
+  String                          $pulsar_filemode            = &#39;0664&#39;,
+  Optional[Stdlib::Absolutepath]  $pulsar_file_cache_dir      = undef,
+  Optional[Stdlib::Absolutepath]  $pulsar_galaxy_path         = undef,
+  Optional[Stdlib::Absolutepath]  $pulsar_galaxy_venv_path    = undef,
+  Boolean                         $pulsar_galaxy_verify       = false,
+  Stdlib::Httpurl                 $pulsar_git_repository      = &#39;https://github.com/galaxyproject/pulsar&#39;,
+  String                          $pulsar_git_revision        = &#39;master&#39;,
+  String                          $pulsar_group               = &#39;galaxy&#39;,
+  Optional[String]                $pulsar_job_directory_mode  = undef,
+  Boolean                         $pulsar_job_run_as_user     = false,
+  Stdlib::Absolutepath            $pulsar_logdir              = &#39;/var/log/pulsar&#39;,
+  Integer                         $pulsar_num_backups         = 10,
+  Hash                            $pulsar_named_managers      = { &#39;__default__&#39; =&gt; {&#39;type&#39; =&gt;&#39;queued_python&#39;, &#39;num_concurrent_jobs&#39; =&gt; &#39;i&#39;, } },
+  String                          $pulsar_owner               = &#39;galaxy&#39;,
+  String                          $pulsar_persistence_dir     = &quot;${pulsar_dir}/files/persisted_data&quot;,
+  Boolean                         $pulsar_pip_install         = true,
+  Optional[String]                $pulsar_private_token       = undef,
+  Array                           $pulsar_requirements        = [ &#39;pulsar-app&#39;, ],
+  Stdlib::Absolutepath            $pulsar_staging_dir         = &quot;${pulsar_dir}/files/staging&quot;,
+  String                          $pulsar_template_app        = &#39;pulsar/app.yml.erb&#39;,
+  String                          $pulsar_template_local_env  = &#39;pulsar/local_env.sh.erb&#39;,
+  String                          $pulsar_template_run        = &#39;pulsar/run.sh.erb&#39;,
+  String                          $pulsar_template_service    = &#39;pulsar/supervisor_pulsar.conf.erb&#39;,
+  Stdlib::Absolutepath            $pulsar_tool_dependency_dir = &quot;${pulsar_dir}/dependencies&quot;,
+  Boolean                         $pulsar_use_uuids           = false,
+  Hash                            $server_ini_config          = {},
+  Hash                            $server_ini_hash_params     = {},
+  Boolean                         $service_enable             = true,
+  Enum[&#39;running&#39;, &#39;stopped&#39;]      $service_ensure             = &#39;running&#39;,
+  Boolean                         $service_manage_config      = true,
+  Stdlib::Absolutepath            $service_manage_configdir   = &#39;/etc/supervisor/conf.d&#39;,
+  String                          $service_name               = &#39;pulsar&#39;,
+) {
+  case $::operatingsystem {
+    &#39;RedHat&#39;, &#39;CentOS&#39;: {
+      case $::operatingsystemmajrelease {
+        &#39;7&#39;: {
+          contain pulsar::gcc
+          contain pulsar::git
+          contain pulsar::python
+          contain pulsar::install
+          contain pulsar::config
+          contain pulsar::service
+
+          Class[&#39;pulsar::gcc&#39;]
+          -&gt; Class[&#39;pulsar::git&#39;]
+          -&gt; Class[&#39;pulsar::python&#39;]
+          -&gt; Class[&#39;pulsar::install&#39;]
+          -&gt; Class[&#39;pulsar::config&#39;]
+          ~&gt; Class[&#39;pulsar::service&#39;]
+        }
+        default: {
+          fail(&quot;${::operatingsystem} ${::operatingsystemmajrelease} not supported&quot;)
+        }
+      }
+    }
+    default: {
+      fail(&quot;${::operatingsystem} not supported&quot;)
+    }
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
