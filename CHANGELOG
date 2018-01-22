@@ -1,2 +1,5 @@
+2018-01-22 Release 1.0.1
+- fixed missed puppet-lint errors
+
 2018-01-22 Release 1.0.0
 - Initial Release
